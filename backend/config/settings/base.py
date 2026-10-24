@@ -36,6 +36,10 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "apps.core",
     "apps.accounts",
+    "apps.businesses",
+    "apps.catalog",
+    "apps.scheduling",
+    "apps.bookings",
 ]
 
 MIDDLEWARE = [

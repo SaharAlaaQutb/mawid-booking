@@ -4,7 +4,7 @@
 
 The application is bilingual: **Arabic (RTL)** and **English (LTR)**.
 
-> **Status:** Foundation scaffold complete. Docker Compose, the Django API shell with JWT authentication and health checks, the bilingual React shell, and CI are in place. The customer booking flow is next.
+> **Status:** Foundation and core domain model complete. The Django API shell, JWT authentication, bilingual React shell, CI, business/catalog/scheduling/bookings models, repositories, overlap protection, and demo seed data are in place. Availability and the customer booking flow are next.
 
 ---
 
@@ -145,6 +145,16 @@ Once the scaffold is in place, the services will be available at:
 | Mailpit (development email) | http://localhost:8025 |
 
 The API health check is available at http://localhost:8000/health and interactive API documentation at http://localhost:8000/api/docs/.
+
+### Demo data
+
+Create or refresh the idempotent demo clinic, staff, services, working hours, customers, and appointments:
+
+```bash
+docker compose exec backend python manage.py seed_demo
+```
+
+The demo owner is `owner@mawid.local` with the password `mawid-demo-123`; set `MAWID_DEMO_PASSWORD` to override it.
 
 ---
 
