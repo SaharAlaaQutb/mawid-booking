@@ -4,7 +4,7 @@
 
 The application is bilingual: **Arabic (RTL)** and **English (LTR)**.
 
-> **Status:** Foundation and core domain model complete. The Django API shell, JWT authentication, bilingual React shell, CI, business/catalog/scheduling/bookings models, repositories, overlap protection, and demo seed data are in place. Availability and the customer booking flow are next.
+> **Status:** Foundation, core domain model, and the availability API are complete. The Django API shell, JWT authentication, bilingual React shell, CI, business/catalog/scheduling/bookings models, repositories, overlap protection, DST-safe slot generation, staff recommendation, next-available lookup, and demo seed data are in place. The public catalog and customer booking flow are next.
 
 ---
 
