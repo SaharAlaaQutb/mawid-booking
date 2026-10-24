@@ -4,7 +4,7 @@
 
 The application is bilingual: **Arabic (RTL)** and **English (LTR)**.
 
-> **Status:** In development. The repository currently contains the product specification and implementation plan. Application scaffolding is the next step.
+> **Status:** Foundation scaffold complete. Docker Compose, the Django API shell with JWT authentication and health checks, the bilingual React shell, and CI are in place. The customer booking flow is next.
 
 ---
 
@@ -104,8 +104,8 @@ mawid-booking/
     src/
       app/                  Providers, router, layouts
       features/             Booking, manage, calendar, services, staff, settings
-      shared/               UI components, API client, i18n, utilities
-    public/locales/         Translation files (en, ar)
+      shared/               UI components, API client, i18n, auth, utilities
+        i18n/locales/       Translation files (en, ar)
     tests/
   infra/                    nginx and Docker Compose files
   .github/workflows/        CI and deployment pipelines
@@ -144,17 +144,13 @@ Once the scaffold is in place, the services will be available at:
 | Health check | http://localhost:8000/health |
 | Mailpit (development email) | http://localhost:8025 |
 
-### Demo data
-
-```bash
-docker compose exec backend python manage.py seed_demo
-```
-
-The seeder creates a sample business, staff members, services, working hours, time off, and bookings.
+The API health check is available at http://localhost:8000/health and interactive API documentation at http://localhost:8000/api/docs/.
 
 ---
 
 ## API overview
+
+The endpoints below are the frozen MVP contract. They are implemented incrementally as features land.
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -186,7 +182,7 @@ API errors use a stable machine-readable `code` plus a translated `detail`, for 
 
 ## Quality checks
 
-The intended development commands are:
+Use the Makefile for local checks:
 
 ```bash
 make lint          # ruff + ESLint

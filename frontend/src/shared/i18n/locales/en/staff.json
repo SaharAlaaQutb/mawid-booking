@@ -1,0 +1,22 @@
+{
+  "login": {
+    "title": "Staff login",
+    "description": "Sign in to manage appointments, services, and working hours.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in...",
+    "error": "Unable to sign in. Check your credentials and try again."
+  },
+  "dashboard": {
+    "title": "Staff dashboard",
+    "welcome": "Welcome",
+    "description": "The calendar and appointment controls will appear in the next feature.",
+    "signedInAs": "Signed in as"
+  },
+  "manage": {
+    "title": "Manage your booking",
+    "description": "Use this page to cancel or reschedule an appointment.",
+    "tokenLabel": "Booking reference"
+  }
+}

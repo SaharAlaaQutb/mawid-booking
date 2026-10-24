@@ -1,0 +1,53 @@
+{
+  "appName": "Mawid",
+  "tagline": "Appointments made simple.",
+  "nav": {
+    "book": "Book an appointment",
+    "staff": "Staff portal"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "ar": "العربية"
+  },
+  "actions": {
+    "continue": "Continue",
+    "signOut": "Sign out",
+    "backHome": "Back to home",
+    "retry": "Try again"
+  },
+  "footer": {
+    "builtWith": "Built with Django and React"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist."
+  },
+  "foundation": {
+    "badge": "Foundation",
+    "title": "A solid base for the booking flow",
+    "description": "The API health check, staff authentication, bilingual shell, and design tokens are ready. The booking wizard and calendar come next."
+  },
+  "home": {
+    "eyebrow": "Appointment booking for clinics, salons, and studios",
+    "title": "Your next appointment, without the phone call.",
+    "description": "Mawid lets small businesses publish services and working hours while customers book available times online in Arabic or English.",
+    "primaryCta": "Start booking",
+    "secondaryCta": "Staff sign in",
+    "featuresTitle": "Built for the way small teams work",
+    "features": {
+      "availability": {
+        "title": "Accurate availability",
+        "description": "Time-zone aware slots subtract working hours, time off, and existing bookings."
+      },
+      "reminders": {
+        "title": "Reminders that arrive",
+        "description": "Confirmation and reminder emails are localized for each customer."
+      },
+      "bilingual": {
+        "title": "Arabic and English",
+        "description": "Every screen supports RTL layouts and locale-aware formatting."
+      }
+    }
+  }
+}

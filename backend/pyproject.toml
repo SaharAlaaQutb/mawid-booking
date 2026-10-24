@@ -1,0 +1,79 @@
+[project]
+name = "mawid-backend"
+version = "0.1.0"
+description = "Mawid appointment booking API"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "celery>=5.5,<6",
+    "django>=5.2,<5.3",
+    "django-cors-headers>=4.7,<5",
+    "django-environ>=0.12,<0.13",
+    "djangorestframework>=3.16,<3.17",
+    "djangorestframework-simplejwt>=5.5,<6",
+    "drf-spectacular>=0.28,<0.29",
+    "gunicorn>=23,<24",
+    "psycopg[binary]>=3.2,<4",
+    "redis>=6,<7",
+]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=5.2,<5.3",
+    "djangorestframework-stubs>=3.16,<3.17",
+    "factory-boy>=3.3,<4",
+    "freezegun>=1.5,<2",
+    "mypy>=1.15,<2",
+    "pytest>=8.3,<9",
+    "pytest-cov>=6,<7",
+    "pytest-django>=4.10,<5",
+    "ruff>=0.11,<0.12",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["apps", "config", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "DJ", "SIM", "RUF"]
+ignore = ["RUF012", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*" = ["E501", "I001"]
+"**/tests/*" = ["S101"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["apps"]
+omit = ["apps/*/migrations/*", "apps/*/apps.py"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main"]
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
+exclude = ["migrations"]
+
+[[tool.mypy.overrides]]
+module = ["apps.*.domain.*", "apps.*.application.*"]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
