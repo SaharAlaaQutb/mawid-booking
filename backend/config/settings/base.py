@@ -127,6 +127,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "anon": env("DRF_ANON_THROTTLE", default="60/min"),
         "user": env("DRF_USER_THROTTLE", default="120/min"),
+        "booking": env("DRF_BOOKING_THROTTLE", default="20/min"),
     },
 }
 

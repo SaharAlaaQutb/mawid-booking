@@ -59,6 +59,14 @@ class DjangoStaffRepository:
         model = StaffModel.objects.filter(pk=staff_id).first()
         return _staff_to_entity(model) if model else None
 
+    def get_by_user(self, user_id: UUID) -> Staff | None:
+        model = StaffModel.objects.filter(user_id=user_id).first()
+        return _staff_to_entity(model) if model else None
+
+    def get_for_update(self, staff_id: UUID) -> Staff | None:
+        model = StaffModel.objects.select_for_update().filter(pk=staff_id).first()
+        return _staff_to_entity(model) if model else None
+
     def list_active(self, business_id: UUID) -> list[Staff]:
         models = StaffModel.objects.filter(business_id=business_id, is_active=True)
         return [_staff_to_entity(model) for model in models]
