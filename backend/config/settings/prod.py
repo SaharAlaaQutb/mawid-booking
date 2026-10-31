@@ -1,3 +1,5 @@
+import logging
+
 from config.settings.base import *  # noqa: F403
 from config.settings.base import env
 
@@ -22,3 +24,32 @@ CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_REFERRER_POLICY = "same-origin"
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
 CSRF_TRUSTED_ORIGINS = env("DJANGO_CSRF_TRUSTED_ORIGINS")
+
+_base_logging = dict(globals()["LOGGING"])
+_base_logging["formatters"] = {
+    **_base_logging.get("formatters", {}),
+    "json": {
+        "()": "apps.core.presentation.request_logging.JsonFormatter",
+    },
+}
+_base_logging["filters"] = {
+    "request_id": {
+        "()": "apps.core.presentation.request_logging.RequestIDLogFilter",
+    },
+}
+_base_logging["handlers"]["console"]["formatter"] = "json"
+_base_logging["handlers"]["console"]["filters"] = ["request_id"]
+globals()["LOGGING"] = _base_logging
+
+SENTRY_DSN = env("SENTRY_DSN", default="")
+if SENTRY_DSN:
+    try:
+        import sentry_sdk
+
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            release=env("SENTRY_RELEASE", default=None),
+            traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
+        )
+    except ImportError:  # pragma: no cover
+        logging.getLogger(__name__).warning("SENTRY_DSN is set but sentry-sdk is not installed")
