@@ -51,6 +51,8 @@ jobs:
           enable-cache: true
       - name: Install dependencies
         run: uv sync --frozen
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
       - name: Compile translations
         run: uv run python manage.py compilemessages
       - name: Lint

@@ -34,6 +34,7 @@ class NotificationService:
         staff: Staff,
         business: Business,
         management_token: str,
+        language: str | None = None,
     ) -> None:
         context = self._context_builder.build(
             appointment=appointment,
@@ -42,6 +43,7 @@ class NotificationService:
             staff=staff,
             business=business,
             management_url=build_management_link(self._base_url, management_token),
+            language=language,
         )
         message = self._renderer.render(kind, context)
         self._sender.send(recipient=customer.email, message=message)
