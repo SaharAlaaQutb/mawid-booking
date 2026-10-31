@@ -170,7 +170,12 @@ CELERY_TASK_TIME_LIMIT = env.int("CELERY_TASK_TIME_LIMIT", default=300)
 CELERY_TASK_ACKS_LATE = True
 CELERY_TASK_REJECT_ON_WORKER_LOST = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_BEAT_SCHEDULE: dict[str, dict[str, object]] = {}
+CELERY_BEAT_SCHEDULE: dict[str, dict[str, object]] = {
+    "process-due-reminders": {
+        "task": "notifications.process_due_reminders",
+        "schedule": 300.0,
+    },
+}
 CELERY_TIMEZONE = TIME_ZONE
 
 EMAIL_BACKEND = env(
