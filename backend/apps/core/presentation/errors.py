@@ -2,6 +2,7 @@ import logging
 from typing import Any
 
 from django.http import HttpRequest
+from django.utils.translation import gettext as translate
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.exceptions import APIException, ValidationError
@@ -50,23 +51,25 @@ def api_exception_handler(
         return Response(
             {
                 "code": "server_error",
-                "detail": str(_("An unexpected error occurred.")),
+                "detail": translate(str(_("An unexpected error occurred."))),
                 "fields": {},
                 "request_id": _request_id(context),
             },
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-    code = _CODE_MAP.get(getattr(exc, "default_code", ""), getattr(exc, "default_code", "error"))
-    fields: dict[str, Any] = {}
-
     if isinstance(exc, ValidationError):
+        code = "validation_error"
         fields = _fields_from_validation_error(exc, response.data)
-        detail = str(_("Validation failed."))
-    elif isinstance(response.data, dict) and "detail" in response.data:
-        detail = str(response.data["detail"])
+        detail = translate(str(_("Validation failed.")))
     else:
-        detail = str(_("Request failed."))
+        default_code = getattr(exc, "default_code", "") or ""
+        code = _CODE_MAP.get(default_code, default_code) or "error"
+        fields = {}
+        if isinstance(response.data, dict) and "detail" in response.data:
+            detail = translate(str(response.data["detail"]))
+        else:
+            detail = translate(str(_("Request failed.")))
 
     response.data = {
         "code": code,
