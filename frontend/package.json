@@ -13,7 +13,9 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "i18n:check": "node scripts/i18n-check.mjs"
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "schema:generate": "openapi-typescript ../backend/openapi.json -o src/shared/api/generated.d.ts",
+    "schema:check": "openapi-typescript ../backend/openapi.json -o /tmp/mawid-api-generated.d.ts && diff -q /tmp/mawid-api-generated.d.ts src/shared/api/generated.d.ts"
   },
   "dependencies": {
     "@fontsource/cairo": "^5.1.1",
@@ -49,6 +51,7 @@
     "jest-axe": "^9.0.0",
     "jsdom": "^26.0.0",
     "msw": "^2.7.0",
+    "openapi-typescript": "^7.13.0",
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
     "tailwindcss": "^3.4.17",

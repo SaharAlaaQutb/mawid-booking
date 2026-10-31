@@ -65,6 +65,8 @@ jobs:
         run: uv run mypy apps config
       - name: Test
         run: uv run pytest --cov=apps --cov-report=term-missing
+      - name: Check OpenAPI schema
+        run: uv run python manage.py spectacular --format openapi-json --file openapi.json --validate && git diff --exit-code -- backend/openapi.json
 
   frontend:
     name: Frontend
@@ -87,6 +89,8 @@ jobs:
         run: npm run format:check
       - name: Type check
         run: npm run typecheck
+      - name: Check OpenAPI-generated types
+        run: npm run schema:check
       - name: Test
         run: npm test
       - name: Check translations
