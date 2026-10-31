@@ -17,6 +17,7 @@ from apps.businesses.container import build_business_repository
 from apps.catalog.container import build_service_repository, build_staff_repository
 from apps.core.domain.clock import SystemClock
 from apps.core.infrastructure.unit_of_work import build_unit_of_work
+from apps.notifications.container import build_notification_service
 
 
 def build_customer_repository() -> CustomerRepository:
@@ -43,6 +44,7 @@ def build_booking_service() -> BookingService:
         reminder_repository=build_reminder_repository(),
         availability=AvailabilityGateway(build_availability_service()),
         unit_of_work=build_unit_of_work(),
+        notifier=build_notification_service(),
     )
 
 

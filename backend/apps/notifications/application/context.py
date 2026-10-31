@@ -15,6 +15,7 @@ class MessageContextBuilder:
         staff: Staff,
         business: Business,
         management_url: str,
+        language: str | None = None,
     ) -> MessageContext:
         return MessageContext(
             appointment=appointment,
@@ -23,7 +24,7 @@ class MessageContextBuilder:
             staff=staff,
             business=business,
             management_url=management_url,
-            language=self._resolve_language(appointment, customer, business),
+            language=self._resolve_language(appointment, customer, business, language),
         )
 
     def _resolve_language(
@@ -31,7 +32,10 @@ class MessageContextBuilder:
         appointment: Appointment,
         customer: Customer,
         business: Business,
+        override: str | None,
     ) -> str:
+        if override in SUPPORTED_LOCALES:
+            return override
         for candidate in (
             appointment.customer_language,
             customer.language,

@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from uuid import UUID, uuid4
@@ -26,9 +27,14 @@ from apps.catalog.domain.entities import Service, Staff
 from apps.catalog.domain.repository import ServiceRepository, StaffRepository
 from apps.core.domain.locale import SUPPORTED_LOCALES
 from apps.core.domain.unit_of_work import UnitOfWork
+from apps.notifications.application.notification import NotificationService
+from apps.notifications.domain.messages import NotificationKind
+from apps.notifications.domain.senders import NotificationError
 
 REMINDER_LEAD = timedelta(hours=24)
 MAX_IDEMPOTENCY_KEY_LENGTH = 64
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,6 +59,7 @@ class BookingService:
         reminder_repository: ReminderRepository,
         availability: AvailabilityGateway,
         unit_of_work: UnitOfWork,
+        notifier: NotificationService,
     ) -> None:
         self._businesses = business_repository
         self._services = service_repository
@@ -62,6 +69,7 @@ class BookingService:
         self._reminders = reminder_repository
         self._availability = availability
         self._uow = unit_of_work
+        self._notifier = notifier
 
     def create(
         self,
@@ -161,6 +169,14 @@ class BookingService:
                     )
             raise SlotTakenError("This slot is no longer available.") from exc
 
+        self._send_confirmation(
+            appointment=saved,
+            customer=customer,
+            service=service,
+            staff=staff,
+            business=business,
+            management_token=token.value,
+        )
         return BookingResult(
             appointment=saved,
             customer=customer,
@@ -169,6 +185,32 @@ class BookingService:
             business=business,
             management_token=token.value,
         )
+
+    def _send_confirmation(
+        self,
+        *,
+        appointment: Appointment,
+        customer: Customer,
+        service: Service,
+        staff: Staff,
+        business: Business,
+        management_token: str,
+    ) -> None:
+        try:
+            self._notifier.send(
+                NotificationKind.CONFIRMATION,
+                appointment=appointment,
+                customer=customer,
+                service=service,
+                staff=staff,
+                business=business,
+                management_token=management_token,
+            )
+        except NotificationError:
+            logger.exception(
+                "Failed to send booking confirmation",
+                extra={"appointment_id": str(appointment.id)},
+            )
 
     def _replay(
         self,
