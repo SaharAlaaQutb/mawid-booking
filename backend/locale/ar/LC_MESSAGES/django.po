@@ -12,42 +12,389 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
 
-#: apps/notifications/templates/notifications/email/confirmation_subject.txt
-msgid "Your booking at %(business)s is confirmed"
-msgstr "تم تأكيد حجزك في %(business)s"
+msgid "Owner"
+msgstr "المالك"
 
-#: apps/notifications/templates/notifications/email/reminder_subject.txt
-msgid "Reminder: your booking at %(business)s"
-msgstr "تذكير: حجزك في %(business)s"
+msgid "Staff"
+msgstr "الموظف"
 
-#: apps/notifications/templates/notifications/email/cancellation_subject.txt
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "email address"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "full name"
+msgstr "الاسم الكامل"
+
+msgid "role"
+msgstr "الدور"
+
+msgid "preferred language"
+msgstr "اللغة المفضلة"
+
+msgid "active"
+msgstr "نشط"
+
+msgid "staff status"
+msgstr "حالة الموظف"
+
+msgid "date joined"
+msgstr "تاريخ الانضمام"
+
+msgid "user"
+msgstr "مستخدم"
+
+msgid "users"
+msgstr "المستخدمون"
+
+msgid "This account is not linked to an active staff member."
+msgstr "هذا الحساب غير مرتبط بموظف نشط."
+
+msgid "Only the business owner can perform this action."
+msgstr "يمكن لمالك النشاط التجاري فقط تنفيذ هذا الإجراء."
+
+msgid "A refresh token is required."
+msgstr "مطلوب رمز تحديث."
+
+msgid "business"
+msgstr "النشاط التجاري"
+
+msgid "name"
+msgstr "الاسم"
+
+msgid "email"
+msgstr "البريد الإلكتروني"
+
+msgid "phone"
+msgstr "الهاتف"
+
+msgid "language"
+msgstr "اللغة"
+
+msgid "created at"
+msgstr "تاريخ الإنشاء"
+
+msgid "updated at"
+msgstr "تاريخ التحديث"
+
+msgid "customer"
+msgstr "العميل"
+
+msgid "customers"
+msgstr "العملاء"
+
+msgid "Name is required."
+msgstr "الاسم مطلوب."
+
+msgid "service"
+msgstr "الخدمة"
+
+msgid "staff member"
+msgstr "الموظف"
+
+msgid "starts at"
+msgstr "يبدأ في"
+
+msgid "ends at"
+msgstr "ينتهي في"
+
+msgid "status"
+msgstr "الحالة"
+
+msgid "price in minor units"
+msgstr "السعر بالوحدات الصغرى"
+
+msgid "currency"
+msgstr "العملة"
+
+msgid "customer language"
+msgstr "لغة العميل"
+
+msgid "notes"
+msgstr "ملاحظات"
+
+msgid "management token hash"
+msgstr "تجزئة رمز الإدارة"
+
+msgid "management token expires at"
+msgstr "ينتهي رمز الإدارة في"
+
+msgid "idempotency key"
+msgstr "مفتاح منع التكرار"
+
+msgid "rescheduled from"
+msgstr "أعيدت جدولته من"
+
+msgid "cancelled at"
+msgstr "أُلغي في"
+
+msgid "cancelled by"
+msgstr "أُلغي بواسطة"
+
+msgid "cancellation reason"
+msgstr "سبب الإلغاء"
+
+msgid "appointment"
+msgstr "الموعد"
+
+msgid "appointments"
+msgstr "المواعيد"
+
+msgid "Appointments must use timezone-aware datetimes."
+msgstr "يجب أن تستخدم المواعيد تواريخ وأوقاتاً واعية بالمنطقة الزمنية."
+
+msgid "End must be after start."
+msgstr "يجب أن يكون الانتهاء بعد البداية."
+
+msgid "Service belongs to another business."
+msgstr "الخدمة تنتمي إلى نشاط تجاري آخر."
+
+msgid "Staff member belongs to another business."
+msgstr "الموظف ينتمي إلى نشاط تجاري آخر."
+
+msgid "Customer belongs to another business."
+msgstr "العميل ينتمي إلى نشاط تجاري آخر."
+
+msgid "This staff member already has an appointment in that slot."
+msgstr "لدى هذا الموظف موعد بالفعل في هذه الفترة."
+
+msgid "kind"
+msgstr "النوع"
+
+msgid "send at"
+msgstr "يُرسل في"
+
+msgid "sent at"
+msgstr "أُرسل في"
+
+msgid "attempts"
+msgstr "المحاولات"
+
+msgid "last error"
+msgstr "آخر خطأ"
+
+msgid "reminder"
+msgstr "التذكير"
+
+msgid "reminders"
+msgstr "التذكيرات"
+
+msgid "Send time must be timezone-aware."
+msgstr "يجب أن يكون وقت الإرسال واعياً بالمنطقة الزمنية."
+
+msgid "Include a timezone offset in the start time."
+msgstr "أدرج إزاحة المنطقة الزمنية في وقت البدء."
+
+msgid "Use 'any' or a valid staff id."
+msgstr "استخدم 'any' أو معرف موظف صالح."
+
+msgid "The appointment was not found."
+msgstr "لم يتم العثور على الموعد."
+
+msgid "This status change is not allowed."
+msgstr "تغيير الحالة هذا غير مسموح."
+
+msgid "The requested calendar range is invalid."
+msgstr "نطاق التقويم المطلوب غير صالح."
+
+msgid "The requested staff member is not available."
+msgstr "الموظف المطلوب غير متاح."
+
+msgid "You cannot change this appointment."
+msgstr "لا يمكنك تغيير هذا الموعد."
+
+msgid "Calendar access is limited to your own schedule."
+msgstr "الوصول إلى التقويم مقتصر على جدولك الخاص."
+
+msgid "No active business is configured."
+msgstr "لا يوجد نشاط تجاري نشط مُعد."
+
+msgid "The requested service is not available."
+msgstr "الخدمة المطلوبة غير متاحة."
+
+msgid "The requested time is not available."
+msgstr "الوقت المطلوب غير متاح."
+
+msgid "This slot was just taken. Choose another time."
+msgstr "تم حجز هذه الفترة للتو. اختر وقتاً آخر."
+
+msgid "This idempotency key was already used for a different booking."
+msgstr "تم استخدام مفتاح منع التكرار هذا بالفعل لحجز مختلف."
+
+msgid "This management link is invalid or has expired."
+msgstr "رابط الإدارة هذا غير صالح أو منتهي الصلاحية."
+
+msgid "This appointment can no longer be cancelled online."
+msgstr "لم يعد بالإمكان إلغاء هذا الموعد عبر الإنترنت."
+
+msgid "slug"
+msgstr "المعرّف النصي"
+
+msgid "Arabic name"
+msgstr "الاسم بالعربية"
+
+msgid "English name"
+msgstr "الاسم بالإنجليزية"
+
+msgid "timezone"
+msgstr "المنطقة الزمنية"
+
+msgid "default locale"
+msgstr "اللغة الافتراضية"
+
+msgid "slot interval in minutes"
+msgstr "الفاصل الزمني للفترات بالدقائق"
+
+msgid "minimum lead time in minutes"
+msgstr "الحد الأدنى للمهلة بالدقائق"
+
+msgid "maximum advance booking days"
+msgstr "الحد الأقصى لأيام الحجز المسبق"
+
+msgid "cancellation window in hours"
+msgstr "فترة الإلغاء بالساعات"
+
+msgid "Arabic address"
+msgstr "العنوان بالعربية"
+
+msgid "English address"
+msgstr "العنوان بالإنجليزية"
+
+msgid "businesses"
+msgstr "الأنشطة التجارية"
+
+msgid "Both business names are required."
+msgstr "اسم النشاط التجاري باللغتين مطلوب."
+
+msgid "Currency is required."
+msgstr "العملة مطلوبة."
+
+msgid "The business was not found."
+msgstr "لم يتم العثور على النشاط التجاري."
+
+msgid "Use a hex color such as #0F766E."
+msgstr "استخدم لوناً سداسياً مثل #0F766E."
+
+msgid "Arabic description"
+msgstr "الوصف بالعربية"
+
+msgid "English description"
+msgstr "الوصف بالإنجليزية"
+
+msgid "duration in minutes"
+msgstr "المدة بالدقائق"
+
+msgid "buffer before in minutes"
+msgstr "الفترة الفاصلة قبل بالدقائق"
+
+msgid "buffer after in minutes"
+msgstr "الفترة الفاصلة بعد بالدقائق"
+
+msgid "sort order"
+msgstr "ترتيب العرض"
+
+msgid "services"
+msgstr "الخدمات"
+
+msgid "Both service names are required."
+msgstr "اسم الخدمة باللغتين مطلوب."
+
+msgid "Arabic title"
+msgstr "المسمى بالعربية"
+
+msgid "English title"
+msgstr "المسمى بالإنجليزية"
+
+msgid "Arabic bio"
+msgstr "النبذة بالعربية"
+
+msgid "English bio"
+msgstr "النبذة بالإنجليزية"
+
+msgid "calendar color"
+msgstr "لون التقويم"
+
+msgid "staff members"
+msgstr "الموظفون"
+
+msgid "Both staff names are required."
+msgstr "اسم الموظف باللغتين مطلوب."
+
+msgid "staff service"
+msgstr "خدمة الموظف"
+
+msgid "staff services"
+msgstr "خدمات الموظفين"
+
+msgid "Staff and service must belong to the same business."
+msgstr "يجب أن ينتمي الموظف والخدمة إلى النشاط التجاري نفسه."
+
+msgid "The service was not found."
+msgstr "لم يتم العثور على الخدمة."
+
+msgid "The staff member was not found."
+msgstr "لم يتم العثور على الموظف."
+
+msgid "Use a valid UUID."
+msgstr "استخدم UUID صالحاً."
+
+msgid "The request conflicts with the current state."
+msgstr "يتعارض الطلب مع الحالة الحالية."
+
+msgid "An unexpected error occurred."
+msgstr "حدث خطأ غير متوقع."
+
+msgid "Validation failed."
+msgstr "فشل التحقق."
+
+msgid "Request failed."
+msgstr "فشل الطلب."
+
+#, python-format
+msgid "%(value)s is not a valid IANA timezone."
+msgstr "%(value)s ليست منطقة زمنية IANA صالحة."
+
+#, python-format
+msgid "Appointment: %(service)s at %(business)s"
+msgstr "الموعد: %(service)s في %(business)s"
+
+#, python-format
+msgid "Staff: %(staff_name)s"
+msgstr "الموظف: %(staff_name)s"
+
+#, python-format
+msgid "Date: %(date)s"
+msgstr "التاريخ: %(date)s"
+
+#, python-format
+msgid "Time: %(start_time)s - %(end_time)s (%(timezone)s)"
+msgstr "الوقت: %(start_time)s - %(end_time)s (%(timezone)s)"
+
+#, python-format
+msgid "Price: %(price)s %(currency)s"
+msgstr "السعر: %(price)s %(currency)s"
+
+#, python-format
+msgid "Manage your booking: %(management_url)s"
+msgstr "إدارة حجزك: %(management_url)s"
+
+#, python-format
 msgid "Your booking at %(business)s was cancelled"
 msgstr "تم إلغاء حجزك في %(business)s"
-
-#: apps/notifications/templates/notifications/email/reschedule_subject.txt
-msgid "Your booking at %(business)s was rescheduled"
-msgstr "تم تغيير موعد حجزك في %(business)s"
-
-msgid "Hello %(customer_name)s,"
-msgstr "مرحباً %(customer_name)s،"
-
-msgid "Your booking is confirmed."
-msgstr "تم تأكيد حجزك."
-
-msgid "This is a reminder for your upcoming booking."
-msgstr "هذا تذكير بموعدك القادم."
 
 msgid "Your booking has been cancelled."
 msgstr "تم إلغاء حجزك."
 
-msgid "Your booking has been rescheduled."
-msgstr "تم تغيير موعد حجزك."
+#, python-format
+msgid "Hello %(customer_name)s,"
+msgstr "مرحباً %(customer_name)s،"
 
 msgid "Service"
 msgstr "الخدمة"
-
-msgid "Staff"
-msgstr "الموظف"
 
 msgid "Date"
 msgstr "التاريخ"
@@ -55,47 +402,119 @@ msgstr "التاريخ"
 msgid "Time"
 msgstr "الوقت"
 
+msgid "If you did not request this change, please contact us."
+msgstr "إذا لم تطلب هذا التغيير، يرجى التواصل معنا."
+
+#, python-format
+msgid "Service: %(service_name)s"
+msgstr "الخدمة: %(service_name)s"
+
+#, python-format
+msgid "Your booking at %(business)s is confirmed"
+msgstr "تم تأكيد حجزك في %(business)s"
+
+msgid "Your booking is confirmed."
+msgstr "تم تأكيد حجزك."
+
 msgid "Duration"
 msgstr "المدة"
 
 msgid "Price"
 msgstr "السعر"
 
-msgid "Service: %(service_name)s"
-msgstr "الخدمة: %(service_name)s"
-
-msgid "Staff: %(staff_name)s"
-msgstr "الموظف: %(staff_name)s"
-
-msgid "Date: %(date)s"
-msgstr "التاريخ: %(date)s"
-
-msgid "Time: %(start_time)s - %(end_time)s (%(timezone)s)"
-msgstr "الوقت: %(start_time)s - %(end_time)s (%(timezone)s)"
-
-msgid "Duration: %(duration)s min"
-msgstr "المدة: %(duration)s دقيقة"
-
-msgid "Price: %(price)s %(currency)s"
-msgstr "السعر: %(price)s %(currency)s"
-
+#, python-format
 msgid "Notes: %(notes)s"
 msgstr "ملاحظات: %(notes)s"
 
 msgid "Manage your booking"
 msgstr "إدارة حجزك"
 
-msgid "Manage your booking: %(management_url)s"
-msgstr "إدارة حجزك: %(management_url)s"
+msgid "We look forward to seeing you."
+msgstr "نتطلع إلى رؤيتك."
+
+#, python-format
+msgid "Duration: %(duration)s min"
+msgstr "المدة: %(duration)s دقيقة"
 
 msgid "If you need to make changes, use the link above."
 msgstr "إذا كنت بحاجة إلى إجراء تغييرات، استخدم الرابط أعلاه."
 
-msgid "We look forward to seeing you."
-msgstr "نتطلع إلى رؤيتك."
+#, python-format
+msgid "Reminder: your booking at %(business)s"
+msgstr "تذكير: حجزك في %(business)s"
 
-msgid "If you did not request this change, please contact us."
-msgstr "إذا لم تطلب هذا التغيير، يرجى التواصل معنا."
+msgid "This is a reminder for your upcoming booking."
+msgstr "هذا تذكير بموعدك القادم."
 
-msgid "Appointment: %(service)s at %(business)s"
-msgstr "موعد: %(service)s في %(business)s"
+#, python-format
+msgid "Your booking at %(business)s was rescheduled"
+msgstr "تم تغيير موعد حجزك في %(business)s"
+
+msgid "Your booking has been rescheduled."
+msgstr "تم تغيير موعد حجزك."
+
+msgid "Monday"
+msgstr "الاثنين"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Sunday"
+msgstr "الأحد"
+
+msgid "weekday"
+msgstr "يوم الأسبوع"
+
+msgid "start time"
+msgstr "وقت البدء"
+
+msgid "end time"
+msgstr "وقت الانتهاء"
+
+msgid "working hours"
+msgstr "ساعات العمل"
+
+msgid "End time must be after start time."
+msgstr "يجب أن يكون وقت الانتهاء بعد وقت البدء."
+
+msgid "This shift overlaps an existing shift for the same day."
+msgstr "تتداخل هذه الوردية مع وردية موجودة في اليوم نفسه."
+
+msgid "reason"
+msgstr "السبب"
+
+msgid "created by"
+msgstr "أنشئ بواسطة"
+
+msgid "time off"
+msgstr "الإجازة"
+
+msgid "Time off must use timezone-aware datetimes."
+msgstr "يجب أن تستخدم الإجازة تواريخ وأوقاتاً واعية بالمنطقة الزمنية."
+
+msgid "You can only access your own schedule."
+msgstr "يمكنك الوصول إلى جدولك الخاص فقط."
+
+msgid "The working hours entry was not found."
+msgstr "لم يتم العثور على إدخال ساعات العمل."
+
+msgid "The time off entry was not found."
+msgstr "لم يتم العثور على إدخال الإجازة."
+
+msgid "The requested date is outside the booking horizon."
+msgstr "التاريخ المطلوب خارج نطاق الحجز المسموح."
+
+msgid "Staff member is not available."
+msgstr "الموظف غير متاح."

@@ -14,6 +14,14 @@ RUN uv sync --frozen
 
 COPY . .
 
+ENV DJANGO_SECRET_KEY=build-only-secret-key
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gettext \
+    && rm -rf /var/lib/apt/lists/* \
+    && uv run python manage.py makemessages -l ar -l en --no-location --no-wrap \
+    && uv run python manage.py compilemessages
+
 ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8000
