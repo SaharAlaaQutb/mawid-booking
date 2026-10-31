@@ -150,6 +150,8 @@ CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = env("DJANGO_CSRF_TRUSTED_ORIGINS")
 
+FRONTEND_BASE_URL = env("FRONTEND_BASE_URL", default="http://localhost:5173")
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "Mawid API",
     "DESCRIPTION": "Appointment booking API for clinics, salons, and small businesses.",

@@ -22,6 +22,8 @@ from apps.catalog.infrastructure.repositories import (
     DjangoStaffRepository,
 )
 from apps.core.infrastructure.unit_of_work import DjangoUnitOfWork
+from apps.notifications.container import build_notification_service
+from apps.notifications.infrastructure.senders import FakeNotificationSender
 from apps.scheduling.application.availability import AvailabilityService
 from apps.scheduling.infrastructure.models import WorkingHours
 from apps.scheduling.infrastructure.repositories import (
@@ -62,6 +64,9 @@ def _booking_service(now: datetime) -> BookingService:
         reminder_repository=build_reminder_repository(),
         availability=AvailabilityGateway(_availability(now)),
         unit_of_work=DjangoUnitOfWork(),
+        notifier=build_notification_service(
+            sender=FakeNotificationSender(), base_url="https://mawid.test"
+        ),
     )
 
 
