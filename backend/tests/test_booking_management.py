@@ -270,3 +270,27 @@ def test_reschedule_respects_the_cancellation_window(
 
 def test_container_builds_management_service() -> None:
     assert isinstance(build_management_service(), BookingManagementService)
+
+
+def test_downloads_a_calendar_invite(
+    api_client,
+    business: Business,
+    service: Service,
+    staff: Staff,
+) -> None:
+    booking = _setup(business, service, staff)
+
+    response = api_client.get(f"/api/appointments/manage/{booking.management_token}/ics")
+
+    assert response.status_code == 200
+    assert response["Content-Type"].startswith("text/calendar")
+    assert "attachment" in response["Content-Disposition"]
+    body = response.content.decode()
+    assert "BEGIN:VCALENDAR" in body
+    assert f"UID:appointment-{booking.appointment.id}@mawid" in body
+
+
+def test_calendar_invite_rejects_an_invalid_token(api_client, db: None) -> None:
+    response = api_client.get("/api/appointments/manage/invalid/ics")
+
+    assert response.status_code == 404
