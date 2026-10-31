@@ -1,4 +1,4 @@
-dist
-coverage
-node_modules
-package-lock.json
+# Generated TypeScript from OpenAPI schema
+src/shared/api/generated.d.ts
+# Build output
+dist/
