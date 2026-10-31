@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mawid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 00:00+0000\n"
+"PO-Revision-Date: 2026-10-31 00:00+0000\n"
+"Last-Translator: Mawid\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+
+#: apps/notifications/templates/notifications/email/confirmation_subject.txt
+msgid "Your booking at %(business)s is confirmed"
+msgstr "تم تأكيد حجزك في %(business)s"
+
+#: apps/notifications/templates/notifications/email/reminder_subject.txt
+msgid "Reminder: your booking at %(business)s"
+msgstr "تذكير: حجزك في %(business)s"
+
+#: apps/notifications/templates/notifications/email/cancellation_subject.txt
+msgid "Your booking at %(business)s was cancelled"
+msgstr "تم إلغاء حجزك في %(business)s"
+
+#: apps/notifications/templates/notifications/email/reschedule_subject.txt
+msgid "Your booking at %(business)s was rescheduled"
+msgstr "تم تغيير موعد حجزك في %(business)s"
+
+msgid "Hello %(customer_name)s,"
+msgstr "مرحباً %(customer_name)s،"
+
+msgid "Your booking is confirmed."
+msgstr "تم تأكيد حجزك."
+
+msgid "This is a reminder for your upcoming booking."
+msgstr "هذا تذكير بموعدك القادم."
+
+msgid "Your booking has been cancelled."
+msgstr "تم إلغاء حجزك."
+
+msgid "Your booking has been rescheduled."
+msgstr "تم تغيير موعد حجزك."
+
+msgid "Service"
+msgstr "الخدمة"
+
+msgid "Staff"
+msgstr "الموظف"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Time"
+msgstr "الوقت"
+
+msgid "Duration"
+msgstr "المدة"
+
+msgid "Price"
+msgstr "السعر"
+
+msgid "Service: %(service_name)s"
+msgstr "الخدمة: %(service_name)s"
+
+msgid "Staff: %(staff_name)s"
+msgstr "الموظف: %(staff_name)s"
+
+msgid "Date: %(date)s"
+msgstr "التاريخ: %(date)s"
+
+msgid "Time: %(start_time)s - %(end_time)s (%(timezone)s)"
+msgstr "الوقت: %(start_time)s - %(end_time)s (%(timezone)s)"
+
+msgid "Duration: %(duration)s min"
+msgstr "المدة: %(duration)s دقيقة"
+
+msgid "Price: %(price)s %(currency)s"
+msgstr "السعر: %(price)s %(currency)s"
+
+msgid "Notes: %(notes)s"
+msgstr "ملاحظات: %(notes)s"
+
+msgid "Manage your booking"
+msgstr "إدارة حجزك"
+
+msgid "Manage your booking: %(management_url)s"
+msgstr "إدارة حجزك: %(management_url)s"
+
+msgid "If you need to make changes, use the link above."
+msgstr "إذا كنت بحاجة إلى إجراء تغييرات، استخدم الرابط أعلاه."
+
+msgid "We look forward to seeing you."
+msgstr "نتطلع إلى رؤيتك."
+
+msgid "If you did not request this change, please contact us."
+msgstr "إذا لم تطلب هذا التغيير، يرجى التواصل معنا."
