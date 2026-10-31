@@ -1,0 +1,2670 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Mawid API",
+        "version": "0.1.0",
+        "description": "Appointment booking API for clinics, salons, and small businesses."
+    },
+    "paths": {
+        "/api/appointments/": {
+            "post": {
+                "operationId": "api_appointments_create",
+                "tags": [
+                    "appointments"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCreateRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCreateRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/appointments/{appointment_id}/status/": {
+            "patch": {
+                "operationId": "api_appointments_status_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "appointment_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "staff appointments"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedAppointmentStatusUpdateRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedAppointmentStatusUpdateRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedAppointmentStatusUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/appointments/manage/{token}/": {
+            "get": {
+                "operationId": "api_appointments_manage_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/appointments/manage/{token}/cancel": {
+            "post": {
+                "operationId": "api_appointments_manage_cancel_create",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCancelRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCancelRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentCancelRequest"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/appointments/manage/{token}/ics": {
+            "get": {
+                "operationId": "api_appointments_manage_ics_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "text/calendar": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/appointments/manage/{token}/reschedule": {
+            "post": {
+                "operationId": "api_appointments_manage_reschedule_create",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "appointments"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/auth/logout/": {
+            "post": {
+                "operationId": "api_auth_logout_create",
+                "tags": [
+                    "api"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/api/auth/me/": {
+            "get": {
+                "operationId": "api_auth_me_retrieve",
+                "tags": [
+                    "api"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/auth/refresh/": {
+            "post": {
+                "operationId": "api_auth_refresh_create",
+                "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+                "tags": [
+                    "api"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TokenRefreshRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TokenRefreshRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TokenRefreshRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenRefresh"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/auth/token/": {
+            "post": {
+                "operationId": "api_auth_token_create",
+                "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
+                "tags": [
+                    "api"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailTokenObtainPairRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailTokenObtainPairRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailTokenObtainPairRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/api/availability/": {
+            "get": {
+                "operationId": "api_availability_retrieve",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "description": "Business-local date in YYYY-MM-DD format.",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "lang",
+                        "schema": {
+                            "enum": [
+                                "en",
+                                "ar"
+                            ],
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Optional response language.\n\n* `en` - en\n* `ar` - ar"
+                    },
+                    {
+                        "in": "query",
+                        "name": "service",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "description": "Service id.",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "staff",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "description": "Staff id or 'any'."
+                    }
+                ],
+                "tags": [
+                    "availability"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AvailabilityResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/business/": {
+            "get": {
+                "operationId": "api_business_retrieve",
+                "tags": [
+                    "business"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PublicBusiness"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/calendar/": {
+            "get": {
+                "operationId": "api_calendar_retrieve",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "ends_on",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "staff",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "starts_on",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "staff calendar"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CalendarResponse"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/services/": {
+            "get": {
+                "operationId": "api_services_list",
+                "tags": [
+                    "catalog"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PublicService"
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "api_services_create",
+                "tags": [
+                    "services"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Service"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/services/{service_id}/": {
+            "get": {
+                "operationId": "api_services_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "service_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "services"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Service"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "api_services_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "service_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "services"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedServiceRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedServiceRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedServiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Service"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "api_services_destroy",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "service_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "services"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/api/settings/": {
+            "get": {
+                "operationId": "api_settings_retrieve",
+                "tags": [
+                    "settings"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessSettings"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "api_settings_partial_update",
+                "tags": [
+                    "settings"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedBusinessSettingsRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedBusinessSettingsRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedBusinessSettingsRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessSettings"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/staff/": {
+            "get": {
+                "operationId": "api_staff_list",
+                "tags": [
+                    "catalog"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PublicStaff"
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "api_staff_create",
+                "tags": [
+                    "staff"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Staff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/staff/{staff_id}/": {
+            "get": {
+                "operationId": "api_staff_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "staff_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Staff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "api_staff_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "staff_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedStaffRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedStaffRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedStaffRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Staff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "api_staff_destroy",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "staff_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/api/time-off/": {
+            "get": {
+                "operationId": "api_time_off_list",
+                "tags": [
+                    "time off"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TimeOff"
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "api_time_off_create",
+                "tags": [
+                    "time off"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimeOffRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimeOffRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimeOffRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TimeOff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/time-off/{time_off_id}/": {
+            "get": {
+                "operationId": "api_time_off_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "time_off_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "time off"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TimeOff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "api_time_off_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "time_off_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "time off"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedTimeOffRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedTimeOffRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedTimeOffRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TimeOff"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "api_time_off_destroy",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "time_off_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "time off"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/api/working-hours/": {
+            "get": {
+                "operationId": "api_working_hours_list",
+                "tags": [
+                    "working hours"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WorkingHours"
+                                    }
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "api_working_hours_create",
+                "tags": [
+                    "working hours"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkingHoursRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkingHoursRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkingHoursRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkingHours"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/api/working-hours/{hours_id}/": {
+            "get": {
+                "operationId": "api_working_hours_retrieve",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "hours_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "working hours"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkingHours"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "api_working_hours_partial_update",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "hours_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "working hours"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedWorkingHoursRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedWorkingHoursRequest"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchedWorkingHoursRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkingHours"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "api_working_hours_destroy",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "hours_id",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "working hours"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "operationId": "health_retrieve",
+                "tags": [
+                    "system"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All dependencies are healthy."
+                    },
+                    "503": {
+                        "description": "One or more dependencies are unavailable."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AppointmentBusiness": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "timezone"
+                ]
+            },
+            "AppointmentCancelRequest": {
+                "type": "object",
+                "properties": {
+                    "reason": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                }
+            },
+            "AppointmentCreateRequest": {
+                "type": "object",
+                "properties": {
+                    "service": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "staff": {
+                        "type": "string"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "customer_name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                    },
+                    "customer_email": {
+                        "type": "string",
+                        "format": "email",
+                        "minLength": 1
+                    },
+                    "customer_phone": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "language": {
+                        "$ref": "#/components/schemas/LanguageEnum"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "maxLength": 2000
+                    }
+                },
+                "required": [
+                    "customer_email",
+                    "customer_name",
+                    "service",
+                    "starts_at"
+                ]
+            },
+            "AppointmentCustomer": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "phone": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email",
+                    "name",
+                    "phone"
+                ]
+            },
+            "AppointmentRescheduleRequest": {
+                "type": "object",
+                "properties": {
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "starts_at"
+                ]
+            },
+            "AppointmentResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "service": {
+                        "$ref": "#/components/schemas/AppointmentService"
+                    },
+                    "staff": {
+                        "$ref": "#/components/schemas/AppointmentStaff"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/AppointmentCustomer"
+                    },
+                    "business": {
+                        "$ref": "#/components/schemas/AppointmentBusiness"
+                    },
+                    "management_url": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "rescheduled_from_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "nullable": true
+                    },
+                    "cancelled_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "cancelled_by": {
+                        "type": "string"
+                    },
+                    "cancellation_reason": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "business",
+                    "cancellation_reason",
+                    "cancelled_at",
+                    "cancelled_by",
+                    "customer",
+                    "ends_at",
+                    "id",
+                    "rescheduled_from_id",
+                    "service",
+                    "staff",
+                    "starts_at",
+                    "status"
+                ]
+            },
+            "AppointmentService": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "duration_minutes": {
+                        "type": "integer"
+                    },
+                    "price_minor": {
+                        "type": "integer"
+                    },
+                    "currency": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "currency",
+                    "duration_minutes",
+                    "id",
+                    "name",
+                    "price_minor"
+                ]
+            },
+            "AppointmentStaff": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "color",
+                    "id",
+                    "name"
+                ]
+            },
+            "AvailabilityResponse": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AvailabilityService"
+                            }
+                        ],
+                        "readOnly": true
+                    },
+                    "slots": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AvailabilitySlot"
+                        },
+                        "readOnly": true
+                    },
+                    "next_available_date": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "date",
+                    "next_available_date",
+                    "service",
+                    "slots",
+                    "timezone"
+                ]
+            },
+            "AvailabilityService": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "duration_minutes": {
+                        "type": "integer"
+                    },
+                    "price_minor": {
+                        "type": "integer"
+                    },
+                    "currency": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "currency",
+                    "duration_minutes",
+                    "id",
+                    "name",
+                    "price_minor"
+                ]
+            },
+            "AvailabilitySlot": {
+                "type": "object",
+                "properties": {
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "recommended_staff_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "staff_options": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StaffOption"
+                        }
+                    }
+                },
+                "required": [
+                    "ends_at",
+                    "recommended_staff_id",
+                    "staff_options",
+                    "starts_at"
+                ]
+            },
+            "BusinessSettings": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "slug": {
+                        "type": "string",
+                        "readOnly": true,
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "name_ar": {
+                        "type": "string",
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "default_locale": {
+                        "$ref": "#/components/schemas/DefaultLocaleEnum"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 3
+                    },
+                    "slot_interval_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 5,
+                        "title": "Slot interval in minutes"
+                    },
+                    "min_lead_time_minutes": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0,
+                        "title": "Minimum lead time in minutes"
+                    },
+                    "max_advance_days": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 1,
+                        "title": "Maximum advance booking days"
+                    },
+                    "cancellation_window_hours": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Cancellation window in hours"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "address_ar": {
+                        "type": "string",
+                        "title": "Arabic address",
+                        "maxLength": 255
+                    },
+                    "address_en": {
+                        "type": "string",
+                        "title": "English address",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "id",
+                    "name_ar",
+                    "name_en",
+                    "slug"
+                ]
+            },
+            "CalendarAppointment": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "$ref": "#/components/schemas/AppointmentService"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/AppointmentCustomer"
+                    },
+                    "notes": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "customer",
+                    "ends_at",
+                    "id",
+                    "notes",
+                    "service",
+                    "starts_at",
+                    "status"
+                ]
+            },
+            "CalendarResponse": {
+                "type": "object",
+                "properties": {
+                    "from_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "to_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    },
+                    "staff": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CalendarStaff"
+                        }
+                    }
+                },
+                "required": [
+                    "from_date",
+                    "staff",
+                    "timezone",
+                    "to_date"
+                ]
+            },
+            "CalendarStaff": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "appointments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CalendarAppointment"
+                        }
+                    }
+                },
+                "required": [
+                    "appointments",
+                    "color",
+                    "id",
+                    "name"
+                ]
+            },
+            "DefaultLocaleEnum": {
+                "enum": [
+                    "en",
+                    "ar"
+                ],
+                "type": "string",
+                "description": "* `en` - English\n* `ar` - Arabic"
+            },
+            "EmailTokenObtainPairRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "writeOnly": true,
+                        "minLength": 1
+                    },
+                    "password": {
+                        "type": "string",
+                        "writeOnly": true,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "LanguageEnum": {
+                "enum": [
+                    "en",
+                    "ar"
+                ],
+                "type": "string",
+                "description": "* `en` - en\n* `ar` - ar"
+            },
+            "PatchedAppointmentStatusUpdateRequest": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/StatusEnum"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                }
+            },
+            "PatchedBusinessSettingsRequest": {
+                "type": "object",
+                "properties": {
+                    "name_ar": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                    },
+                    "default_locale": {
+                        "$ref": "#/components/schemas/DefaultLocaleEnum"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 3
+                    },
+                    "slot_interval_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 5,
+                        "title": "Slot interval in minutes"
+                    },
+                    "min_lead_time_minutes": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0,
+                        "title": "Minimum lead time in minutes"
+                    },
+                    "max_advance_days": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 1,
+                        "title": "Maximum advance booking days"
+                    },
+                    "cancellation_window_hours": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Cancellation window in hours"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "address_ar": {
+                        "type": "string",
+                        "title": "Arabic address",
+                        "maxLength": 255
+                    },
+                    "address_en": {
+                        "type": "string",
+                        "title": "English address",
+                        "maxLength": 255
+                    }
+                }
+            },
+            "PatchedServiceRequest": {
+                "type": "object",
+                "properties": {
+                    "name_ar": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "description_ar": {
+                        "type": "string",
+                        "title": "Arabic description"
+                    },
+                    "description_en": {
+                        "type": "string",
+                        "title": "English description"
+                    },
+                    "duration_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 5,
+                        "title": "Duration in minutes"
+                    },
+                    "buffer_before_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer before in minutes"
+                    },
+                    "buffer_after_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer after in minutes"
+                    },
+                    "price_minor": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0,
+                        "title": "Price in minor units"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 3
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0
+                    }
+                }
+            },
+            "PatchedStaffRequest": {
+                "type": "object",
+                "properties": {
+                    "name_ar": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "title_ar": {
+                        "type": "string",
+                        "title": "Arabic title",
+                        "maxLength": 120
+                    },
+                    "title_en": {
+                        "type": "string",
+                        "title": "English title",
+                        "maxLength": 120
+                    },
+                    "bio_ar": {
+                        "type": "string",
+                        "title": "Arabic bio"
+                    },
+                    "bio_en": {
+                        "type": "string",
+                        "title": "English bio"
+                    },
+                    "preferred_language": {
+                        "$ref": "#/components/schemas/PreferredLanguageEnum"
+                    },
+                    "color": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Calendar color",
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
+                        "maxLength": 7
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "service_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "writeOnly": true
+                    }
+                }
+            },
+            "PatchedTimeOffRequest": {
+                "type": "object",
+                "properties": {
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                }
+            },
+            "PatchedWorkingHoursRequest": {
+                "type": "object",
+                "properties": {
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "weekday": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WeekdayEnum"
+                            }
+                        ],
+                        "minimum": 0,
+                        "maximum": 32767
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time"
+                    }
+                }
+            },
+            "PreferredLanguageEnum": {
+                "enum": [
+                    "en",
+                    "ar"
+                ],
+                "type": "string",
+                "description": "* `en` - English\n* `ar` - Arabic"
+            },
+            "PublicBusiness": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "pattern": "^[-a-zA-Z0-9_]+$"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    },
+                    "default_locale": {
+                        "type": "string"
+                    },
+                    "currency": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "address",
+                    "currency",
+                    "default_locale",
+                    "id",
+                    "name",
+                    "phone",
+                    "slug",
+                    "timezone"
+                ]
+            },
+            "PublicService": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "duration_minutes": {
+                        "type": "integer"
+                    },
+                    "price_minor": {
+                        "type": "integer"
+                    },
+                    "currency": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "currency",
+                    "description",
+                    "duration_minutes",
+                    "id",
+                    "name",
+                    "price_minor"
+                ]
+            },
+            "PublicStaff": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "bio",
+                    "color",
+                    "id",
+                    "name",
+                    "title"
+                ]
+            },
+            "RoleEnum": {
+                "enum": [
+                    "owner",
+                    "staff"
+                ],
+                "type": "string",
+                "description": "* `owner` - Owner\n* `staff` - Staff"
+            },
+            "Service": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name_ar": {
+                        "type": "string",
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "description_ar": {
+                        "type": "string",
+                        "title": "Arabic description"
+                    },
+                    "description_en": {
+                        "type": "string",
+                        "title": "English description"
+                    },
+                    "duration_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 5,
+                        "title": "Duration in minutes"
+                    },
+                    "buffer_before_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer before in minutes"
+                    },
+                    "buffer_after_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer after in minutes"
+                    },
+                    "price_minor": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0,
+                        "title": "Price in minor units"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 3
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "duration_minutes",
+                    "id",
+                    "name_ar",
+                    "name_en"
+                ]
+            },
+            "ServiceRequest": {
+                "type": "object",
+                "properties": {
+                    "name_ar": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "description_ar": {
+                        "type": "string",
+                        "title": "Arabic description"
+                    },
+                    "description_en": {
+                        "type": "string",
+                        "title": "English description"
+                    },
+                    "duration_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 5,
+                        "title": "Duration in minutes"
+                    },
+                    "buffer_before_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer before in minutes"
+                    },
+                    "buffer_after_minutes": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0,
+                        "title": "Buffer after in minutes"
+                    },
+                    "price_minor": {
+                        "type": "integer",
+                        "maximum": 2147483647,
+                        "minimum": 0,
+                        "title": "Price in minor units"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 3
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "maximum": 32767,
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "duration_minutes",
+                    "name_ar",
+                    "name_en"
+                ]
+            },
+            "Staff": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "name_ar": {
+                        "type": "string",
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "title_ar": {
+                        "type": "string",
+                        "title": "Arabic title",
+                        "maxLength": 120
+                    },
+                    "title_en": {
+                        "type": "string",
+                        "title": "English title",
+                        "maxLength": 120
+                    },
+                    "bio_ar": {
+                        "type": "string",
+                        "title": "Arabic bio"
+                    },
+                    "bio_en": {
+                        "type": "string",
+                        "title": "English bio"
+                    },
+                    "preferred_language": {
+                        "$ref": "#/components/schemas/PreferredLanguageEnum"
+                    },
+                    "color": {
+                        "type": "string",
+                        "title": "Calendar color",
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
+                        "maxLength": 7
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "user": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "nullable": true
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": {}
+                        },
+                        "readOnly": true
+                    }
+                },
+                "required": [
+                    "id",
+                    "name_ar",
+                    "name_en",
+                    "services",
+                    "user"
+                ]
+            },
+            "StaffOption": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "booked_count": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "booked_count",
+                    "color",
+                    "id",
+                    "name"
+                ]
+            },
+            "StaffRequest": {
+                "type": "object",
+                "properties": {
+                    "name_ar": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Arabic name",
+                        "maxLength": 120
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "English name",
+                        "maxLength": 120
+                    },
+                    "title_ar": {
+                        "type": "string",
+                        "title": "Arabic title",
+                        "maxLength": 120
+                    },
+                    "title_en": {
+                        "type": "string",
+                        "title": "English title",
+                        "maxLength": 120
+                    },
+                    "bio_ar": {
+                        "type": "string",
+                        "title": "Arabic bio"
+                    },
+                    "bio_en": {
+                        "type": "string",
+                        "title": "English bio"
+                    },
+                    "preferred_language": {
+                        "$ref": "#/components/schemas/PreferredLanguageEnum"
+                    },
+                    "color": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Calendar color",
+                        "pattern": "^#[0-9A-Fa-f]{6}$",
+                        "maxLength": 7
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Active"
+                    },
+                    "service_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "writeOnly": true
+                    }
+                },
+                "required": [
+                    "name_ar",
+                    "name_en"
+                ]
+            },
+            "StatusEnum": {
+                "enum": [
+                    "confirmed",
+                    "completed",
+                    "cancelled",
+                    "no_show"
+                ],
+                "type": "string",
+                "description": "* `confirmed` - confirmed\n* `completed` - completed\n* `cancelled` - cancelled\n* `no_show` - no_show"
+            },
+            "TimeOff": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "created_by": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "created_by",
+                    "ends_at",
+                    "id",
+                    "staff",
+                    "starts_at"
+                ]
+            },
+            "TimeOffRequest": {
+                "type": "object",
+                "properties": {
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ends_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "ends_at",
+                    "staff",
+                    "starts_at"
+                ]
+            },
+            "TokenRefresh": {
+                "type": "object",
+                "properties": {
+                    "access": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "refresh": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "access",
+                    "refresh"
+                ]
+            },
+            "TokenRefreshRequest": {
+                "type": "object",
+                "properties": {
+                    "refresh": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "refresh"
+                ]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": true,
+                        "title": "Email address"
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "role": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RoleEnum"
+                            }
+                        ],
+                        "readOnly": true
+                    },
+                    "preferred_language": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PreferredLanguageEnum"
+                            }
+                        ],
+                        "readOnly": true
+                    }
+                },
+                "required": [
+                    "email",
+                    "full_name",
+                    "id",
+                    "preferred_language",
+                    "role"
+                ]
+            },
+            "WeekdayEnum": {
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "type": "integer",
+                "description": "* `0` - Monday\n* `1` - Tuesday\n* `2` - Wednesday\n* `3` - Thursday\n* `4` - Friday\n* `5` - Saturday\n* `6` - Sunday"
+            },
+            "WorkingHours": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true
+                    },
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "weekday": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WeekdayEnum"
+                            }
+                        ],
+                        "minimum": 0,
+                        "maximum": 32767
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time"
+                    }
+                },
+                "required": [
+                    "end_time",
+                    "id",
+                    "staff",
+                    "start_time",
+                    "weekday"
+                ]
+            },
+            "WorkingHoursRequest": {
+                "type": "object",
+                "properties": {
+                    "staff": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "weekday": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WeekdayEnum"
+                            }
+                        ],
+                        "minimum": 0,
+                        "maximum": 32767
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time"
+                    }
+                },
+                "required": [
+                    "end_time",
+                    "staff",
+                    "start_time",
+                    "weekday"
+                ]
+            }
+        }
+    }
+}

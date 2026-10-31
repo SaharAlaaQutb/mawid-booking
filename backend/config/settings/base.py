@@ -159,6 +159,7 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "0.1.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
+    "EXTENSIONS": ["apps.core.presentation.openapi.LocaleAwareJWTAuthExtension"],
 }
 
 REDIS_URL = env("REDIS_URL", default="")
