@@ -210,3 +210,7 @@ LOGGING = {
         "level": env("LOG_LEVEL", default="INFO"),
     },
 }
+
+from apps.core.presentation import request_logging  # noqa: E402
+
+request_logging.configure_celery_logging()
