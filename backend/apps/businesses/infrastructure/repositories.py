@@ -17,6 +17,8 @@ def _to_entity(model: BusinessModel) -> Business:
         min_lead_time_minutes=model.min_lead_time_minutes,
         max_advance_days=model.max_advance_days,
         cancellation_window_hours=model.cancellation_window_hours,
+        phone=model.phone,
+        address=LocalizedText(ar=model.address_ar, en=model.address_en),
         is_active=model.is_active,
     )
 

@@ -1,0 +1,10 @@
+{% load i18n %}{% blocktrans %}Hello {{ customer_name }},{% endblocktrans %}
+
+{% blocktrans %}Your booking has been cancelled.{% endblocktrans %}
+
+{% blocktrans %}Service: {{ service_name }}{% endblocktrans %}
+{% blocktrans %}Staff: {{ staff_name }}{% endblocktrans %}
+{% blocktrans %}Date: {{ date }}{% endblocktrans %}
+{% blocktrans %}Time: {{ start_time }} - {{ end_time }} ({{ timezone }}){% endblocktrans %}
+
+{% blocktrans %}If you did not request this change, please contact us.{% endblocktrans %}

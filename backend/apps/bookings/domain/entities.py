@@ -33,6 +33,9 @@ class Appointment:
     management_token_expires_at: datetime | None
     idempotency_key: str | None
     rescheduled_from_id: UUID | None
+    cancelled_at: datetime | None = None
+    cancelled_by: str = ""
+    cancellation_reason: str = ""
 
 
 @dataclass(frozen=True, slots=True)

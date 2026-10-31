@@ -1,7 +1,10 @@
 from datetime import datetime
 from uuid import UUID
 
+from django.db import IntegrityError
+
 from apps.bookings.domain.entities import Appointment, Customer, Reminder
+from apps.bookings.domain.errors import AppointmentConflictError
 from apps.bookings.domain.status import (
     ACTIVE_APPOINTMENT_STATUSES,
     AppointmentStatus,
@@ -42,6 +45,9 @@ def _appointment_to_entity(model: AppointmentModel) -> Appointment:
         management_token_expires_at=model.management_token_expires_at,
         idempotency_key=model.idempotency_key or None,
         rescheduled_from_id=model.rescheduled_from_id,
+        cancelled_at=model.cancelled_at,
+        cancelled_by=model.cancelled_by,
+        cancellation_reason=model.cancellation_reason,
     )
 
 
@@ -97,25 +103,61 @@ class DjangoAppointmentRepository:
         model = AppointmentModel.objects.filter(pk=appointment_id).first()
         return _appointment_to_entity(model) if model else None
 
-    def add(self, appointment: Appointment) -> Appointment:
-        model = AppointmentModel.objects.create(
-            id=appointment.id,
-            business_id=appointment.business_id,
-            service_id=appointment.service_id,
-            staff_id=appointment.staff_id,
-            customer_id=appointment.customer_id,
-            starts_at=appointment.starts_at,
-            ends_at=appointment.ends_at,
-            status=appointment.status.value,
-            price_minor=appointment.price_minor,
-            currency=appointment.currency,
-            customer_language=appointment.customer_language,
-            notes=appointment.notes,
-            management_token_hash=appointment.management_token_hash,
-            management_token_expires_at=appointment.management_token_expires_at,
-            idempotency_key=appointment.idempotency_key or "",
-            rescheduled_from_id=appointment.rescheduled_from_id,
+    def get_by_idempotency_key(
+        self,
+        business_id: UUID,
+        idempotency_key: str,
+    ) -> Appointment | None:
+        model = AppointmentModel.objects.filter(
+            business_id=business_id,
+            idempotency_key=idempotency_key,
+        ).first()
+        return _appointment_to_entity(model) if model else None
+
+    def get_by_management_token_hash(self, token_hash: str) -> Appointment | None:
+        model = AppointmentModel.objects.filter(management_token_hash=token_hash).first()
+        return _appointment_to_entity(model) if model else None
+
+    def get_for_update(self, appointment_id: UUID) -> Appointment | None:
+        model = AppointmentModel.objects.select_for_update().filter(pk=appointment_id).first()
+        return _appointment_to_entity(model) if model else None
+
+    def get_by_management_token_hash_for_update(
+        self,
+        token_hash: str,
+    ) -> Appointment | None:
+        model = (
+            AppointmentModel.objects.select_for_update()
+            .filter(management_token_hash=token_hash)
+            .first()
         )
+        return _appointment_to_entity(model) if model else None
+
+    def add(self, appointment: Appointment) -> Appointment:
+        try:
+            model = AppointmentModel.objects.create(
+                id=appointment.id,
+                business_id=appointment.business_id,
+                service_id=appointment.service_id,
+                staff_id=appointment.staff_id,
+                customer_id=appointment.customer_id,
+                starts_at=appointment.starts_at,
+                ends_at=appointment.ends_at,
+                status=appointment.status.value,
+                price_minor=appointment.price_minor,
+                currency=appointment.currency,
+                customer_language=appointment.customer_language,
+                notes=appointment.notes,
+                management_token_hash=appointment.management_token_hash,
+                management_token_expires_at=appointment.management_token_expires_at,
+                idempotency_key=appointment.idempotency_key or "",
+                rescheduled_from_id=appointment.rescheduled_from_id,
+                cancelled_at=appointment.cancelled_at,
+                cancelled_by=appointment.cancelled_by,
+                cancellation_reason=appointment.cancellation_reason,
+            )
+        except IntegrityError as exc:
+            raise AppointmentConflictError from exc
         return _appointment_to_entity(model)
 
     def update(self, appointment: Appointment) -> Appointment:
@@ -135,6 +177,9 @@ class DjangoAppointmentRepository:
         model.management_token_expires_at = appointment.management_token_expires_at
         model.idempotency_key = appointment.idempotency_key or ""
         model.rescheduled_from_id = appointment.rescheduled_from_id
+        model.cancelled_at = appointment.cancelled_at
+        model.cancelled_by = appointment.cancelled_by
+        model.cancellation_reason = appointment.cancellation_reason
         model.save()
         return _appointment_to_entity(model)
 
@@ -149,6 +194,22 @@ class DjangoAppointmentRepository:
             starts_at__lt=ends_at,
             ends_at__gt=starts_at,
         )
+        return [_appointment_to_entity(model) for model in models]
+
+    def list_for_business(
+        self,
+        business_id: UUID,
+        starts_at: datetime,
+        ends_at: datetime,
+        staff_id: UUID | None = None,
+    ) -> list[Appointment]:
+        models = AppointmentModel.objects.filter(
+            business_id=business_id,
+            starts_at__lt=ends_at,
+            ends_at__gt=starts_at,
+        )
+        if staff_id is not None:
+            models = models.filter(staff_id=staff_id)
         return [_appointment_to_entity(model) for model in models]
 
     def has_overlap(
@@ -201,3 +262,9 @@ class DjangoReminderRepository:
         model.language = reminder.language
         model.save()
         return _reminder_to_entity(model)
+
+    def cancel_pending_for_appointment(self, appointment_id: UUID) -> None:
+        ReminderModel.objects.filter(
+            appointment_id=appointment_id,
+            status=ReminderStatus.PENDING.value,
+        ).update(status=ReminderStatus.CANCELLED.value)

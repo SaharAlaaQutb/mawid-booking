@@ -16,4 +16,6 @@ class Business:
     min_lead_time_minutes: int
     max_advance_days: int
     cancellation_window_hours: int
+    phone: str
+    address: LocalizedText
     is_active: bool

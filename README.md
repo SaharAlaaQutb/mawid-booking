@@ -4,7 +4,7 @@
 
 The application is bilingual: **Arabic (RTL)** and **English (LTR)**.
 
-> **Status:** Foundation, core domain model, and the availability API are complete. The Django API shell, JWT authentication, bilingual React shell, CI, business/catalog/scheduling/bookings models, repositories, overlap protection, DST-safe slot generation, staff recommendation, next-available lookup, and demo seed data are in place. The public catalog and customer booking flow are next.
+> **Status:** Backend phases B0-B3 are complete: foundation, core domain model, availability, booking lifecycle, public catalog, staff calendar, and admin CRUD/settings APIs. Email notifications, reminders, and the customer/staff frontend flows are next.
 
 ---
 
@@ -165,8 +165,10 @@ The endpoints below are the frozen MVP contract. They are implemented incrementa
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/api/business/` | Business profile and configuration |
-| `GET` | `/api/services/` | Active services |
-| `GET` | `/api/staff/?service=` | Staff available for a service |
+| `GET/POST` | `/api/services/` | List active services; owners create services |
+| `PATCH/DELETE` | `/api/services/{id}/` | Update or deactivate a service |
+| `GET/POST` | `/api/staff/?service=` | List staff; owners create staff |
+| `PATCH/DELETE` | `/api/staff/{id}/` | Update or deactivate a staff member |
 | `GET` | `/api/availability/?service=&staff=&date=` | Free slots for a date |
 | `POST` | `/api/appointments/` | Create a booking |
 | `GET` | `/api/appointments/manage/{token}/` | View a booking via management link |
@@ -175,7 +177,12 @@ The endpoints below are the frozen MVP contract. They are implemented incrementa
 | `GET` | `/api/appointments/manage/{token}/ics` | Download a calendar invite |
 | `POST` | `/api/auth/token/` | Staff login |
 | `GET` | `/api/calendar/?from=&to=` | Staff calendar data |
-| `PATCH` | `/api/appointments/{id}/status/` | Update appointment status |
+| `PATCH` | `/api/appointments/{id}/status/` | Confirm, complete, no-show, or cancel |
+| `GET/POST` | `/api/working-hours/` | List or create weekly shifts |
+| `PATCH/DELETE` | `/api/working-hours/{id}/` | Update or remove a shift |
+| `GET/POST` | `/api/time-off/` | List or create time off |
+| `PATCH/DELETE` | `/api/time-off/{id}/` | Update or remove time off |
+| `GET/PATCH` | `/api/settings/` | Read or update business settings |
 
 API errors use a stable machine-readable `code` plus a translated `detail`, for example:
 

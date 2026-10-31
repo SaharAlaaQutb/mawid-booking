@@ -1,0 +1,15 @@
+{% load i18n %}{% blocktrans %}Hello {{ customer_name }},{% endblocktrans %}
+
+{% blocktrans %}This is a reminder for your upcoming booking.{% endblocktrans %}
+
+{% blocktrans %}Service: {{ service_name }}{% endblocktrans %}
+{% blocktrans %}Staff: {{ staff_name }}{% endblocktrans %}
+{% blocktrans %}Date: {{ date }}{% endblocktrans %}
+{% blocktrans %}Time: {{ start_time }} - {{ end_time }} ({{ timezone }}){% endblocktrans %}
+{% blocktrans %}Duration: {{ duration }} min{% endblocktrans %}
+{% blocktrans %}Price: {{ price }} {{ currency }}{% endblocktrans %}
+{% if notes %}{% blocktrans %}Notes: {{ notes }}{% endblocktrans %}
+{% endif %}
+{% blocktrans %}Manage your booking: {{ management_url }}{% endblocktrans %}
+
+{% blocktrans %}We look forward to seeing you.{% endblocktrans %}

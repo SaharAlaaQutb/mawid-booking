@@ -1,4 +1,3 @@
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -8,7 +7,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.core.domain.locale import SUPPORTED_LOCALES
+from apps.core.presentation.locale import response_locale
 from apps.scheduling.application.availability import Availability
 from apps.scheduling.container import build_availability_service
 from apps.scheduling.domain.errors import (
@@ -40,14 +39,6 @@ class DateOutsideHorizon(APIException):
     status_code = status.HTTP_400_BAD_REQUEST
     default_detail = _("The requested date is outside the booking horizon.")
     default_code = "date_outside_horizon"
-
-
-def _response_locale(request: Request) -> str:
-    explicit = request.query_params.get("lang")
-    if explicit in SUPPORTED_LOCALES:
-        return explicit
-    language = get_language() or "en"
-    return language.split("-", maxsplit=1)[0]
 
 
 class AvailabilityView(APIView):
@@ -82,7 +73,7 @@ class AvailabilityView(APIView):
         response = Response(
             AvailabilityResponseSerializer(
                 availability,
-                context={"locale": _response_locale(request)},
+                context={"locale": response_locale(request)},
             ).data
         )
         response["Cache-Control"] = "no-store"
