@@ -1,3 +1,4 @@
+import logging
 from dataclasses import replace
 from uuid import UUID
 
@@ -19,6 +20,11 @@ from apps.businesses.domain.repository import BusinessRepository
 from apps.catalog.domain.repository import ServiceRepository, StaffRepository
 from apps.core.domain.clock import Clock
 from apps.core.domain.unit_of_work import UnitOfWork
+from apps.notifications.application.notification import NotificationService
+from apps.notifications.domain.messages import NotificationKind
+from apps.notifications.domain.senders import NotificationError
+
+logger = logging.getLogger(__name__)
 
 TERMINAL_STATUSES = frozenset(
     {
@@ -41,6 +47,7 @@ class StaffAppointmentService:
         reminder_repository: ReminderRepository,
         unit_of_work: UnitOfWork,
         clock: Clock,
+        notifier: NotificationService,
     ) -> None:
         self._businesses = business_repository
         self._services = service_repository
@@ -50,6 +57,7 @@ class StaffAppointmentService:
         self._reminders = reminder_repository
         self._uow = unit_of_work
         self._clock = clock
+        self._notifier = notifier
 
     def update_status(
         self,
@@ -93,7 +101,26 @@ class StaffAppointmentService:
             updated = self._appointments.update(updated)
             if target in TERMINAL_STATUSES:
                 self._reminders.cancel_pending_for_appointment(updated.id)
-            return self._details(updated)
+            result = self._details(updated)
+        if target is AppointmentStatus.CANCELLED:
+            self._notify(result)
+        return result
+
+    def _notify(self, booking: ManagedBooking) -> None:
+        try:
+            self._notifier.send(
+                NotificationKind.CANCELLATION,
+                appointment=booking.appointment,
+                customer=booking.customer,
+                service=booking.service,
+                staff=booking.staff,
+                business=booking.business,
+            )
+        except NotificationError:
+            logger.exception(
+                "Failed to send cancellation notification",
+                extra={"appointment_id": str(booking.appointment.id)},
+            )
 
     def _details(self, appointment: Appointment) -> ManagedBooking:
         customer = self._customers.get(appointment.customer_id)

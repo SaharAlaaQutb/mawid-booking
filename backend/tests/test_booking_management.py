@@ -70,7 +70,10 @@ def _booking_service(now: datetime) -> BookingService:
     )
 
 
-def _management_service(clock: MutableClock) -> BookingManagementService:
+def _management_service(
+    clock: MutableClock,
+    sender: FakeNotificationSender | None = None,
+) -> BookingManagementService:
     return BookingManagementService(
         business_repository=DjangoBusinessRepository(),
         service_repository=DjangoServiceRepository(),
@@ -81,6 +84,10 @@ def _management_service(clock: MutableClock) -> BookingManagementService:
         availability=AvailabilityGateway(_availability(clock.value)),
         unit_of_work=DjangoUnitOfWork(),
         clock=clock,
+        notifier=build_notification_service(
+            sender=sender or FakeNotificationSender(),
+            base_url="https://mawid.test",
+        ),
     )
 
 
@@ -294,3 +301,41 @@ def test_calendar_invite_rejects_an_invalid_token(api_client, db: None) -> None:
     response = api_client.get("/api/appointments/manage/invalid/ics")
 
     assert response.status_code == 404
+
+
+def test_cancel_sends_a_localized_cancellation_email(
+    business: Business,
+    service: Service,
+    staff: Staff,
+) -> None:
+    booking = _setup(business, service, staff)
+    sender = FakeNotificationSender()
+
+    _management_service(MutableClock(datetime(2026, 10, 30, 8, tzinfo=UTC)), sender).cancel(
+        booking.management_token
+    )
+
+    assert len(sender.sent) == 1
+    assert "تم إلغاء حجزك" in sender.sent[0].message.subject
+
+
+def test_reschedule_sends_a_localized_reschedule_email(
+    business: Business,
+    service: Service,
+    staff: Staff,
+) -> None:
+    booking = _setup(business, service, staff)
+    sender = FakeNotificationSender()
+    management = _management_service(
+        MutableClock(datetime(2026, 10, 30, 8, tzinfo=UTC)),
+        sender,
+    )
+
+    management.reschedule(
+        booking.management_token,
+        starts_at=datetime(2026, 11, 2, 7, 0, tzinfo=UTC),
+    )
+
+    assert len(sender.sent) == 1
+    assert "تم تغيير موعد حجزك" in sender.sent[0].message.subject
+    assert "https://mawid.test/manage/" in sender.sent[0].message.text_body

@@ -415,3 +415,31 @@ def test_calendar_rejects_oversized_range(owner_client: APIClient) -> None:
 
     assert response.status_code == 400
     assert response.data["code"] == "invalid_range"
+
+
+def test_staff_cancel_sends_a_localized_cancellation_email(
+    owner_client: APIClient,
+    business: Business,
+    service: Service,
+    staff: Staff,
+    customer: Customer,
+    mailoutbox: list,
+) -> None:
+    appointment = _appointment(
+        business=business,
+        service=service,
+        staff=staff,
+        customer=customer,
+    )
+    appointment.customer_language = "ar"
+    appointment.save(update_fields=["customer_language"])
+
+    response = owner_client.patch(
+        f"/api/appointments/{appointment.id}/status/",
+        {"status": "cancelled"},
+        format="json",
+    )
+
+    assert response.status_code == 200
+    assert len(mailoutbox) == 1
+    assert "تم إلغاء حجزك" in mailoutbox[0].subject
