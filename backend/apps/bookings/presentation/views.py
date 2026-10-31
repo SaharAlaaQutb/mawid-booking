@@ -1,6 +1,7 @@
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
@@ -32,6 +33,7 @@ from apps.bookings.presentation.serializers import (
     AppointmentResponseSerializer,
 )
 from apps.core.presentation.locale import response_locale
+from apps.notifications.container import build_ics_service
 
 
 class BusinessNotConfigured(APIException):
@@ -291,6 +293,34 @@ class AppointmentRescheduleView(APIView):
                 locale=response_locale(request),
                 management_url=_management_url(request, result.management_token),
             )
+        )
+        response["Cache-Control"] = "no-store"
+        return response
+
+
+class AppointmentIcsView(APIView):
+    permission_classes = (AllowAny,)
+    authentication_classes: tuple[()] = ()
+    throttle_classes = (ScopedRateThrottle,)
+    throttle_scope = "booking"
+
+    @extend_schema(
+        responses={(200, "text/calendar"): bytes},
+        tags=["appointments"],
+    )
+    def get(self, request: Request, token: str) -> HttpResponse:
+        try:
+            booking = build_management_service().get(token)
+        except ManagementTokenInvalidError as exc:
+            raise ManagementLinkInvalid from exc
+
+        content = build_ics_service().build(
+            booking,
+            management_url=_management_url(request, token),
+        )
+        response = HttpResponse(content, content_type="text/calendar; charset=utf-8")
+        response["Content-Disposition"] = (
+            f'attachment; filename="mawid-{booking.appointment.id}.ics"'
         )
         response["Cache-Control"] = "no-store"
         return response

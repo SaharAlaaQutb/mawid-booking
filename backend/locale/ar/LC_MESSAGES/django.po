@@ -96,3 +96,6 @@ msgstr "نتطلع إلى رؤيتك."
 
 msgid "If you did not request this change, please contact us."
 msgstr "إذا لم تطلب هذا التغيير، يرجى التواصل معنا."
+
+msgid "Appointment: %(service)s at %(business)s"
+msgstr "موعد: %(service)s في %(business)s"

@@ -4,6 +4,7 @@ from apps.bookings.presentation.staff_views import StaffAppointmentStatusView
 from apps.bookings.presentation.views import (
     AppointmentCancelView,
     AppointmentCreateView,
+    AppointmentIcsView,
     AppointmentManageView,
     AppointmentRescheduleView,
 )
@@ -15,6 +16,11 @@ urlpatterns = [
         "manage/<str:token>/cancel",
         AppointmentCancelView.as_view(),
         name="appointment-cancel",
+    ),
+    path(
+        "manage/<str:token>/ics",
+        AppointmentIcsView.as_view(),
+        name="appointment-ics",
     ),
     path(
         "manage/<str:token>/reschedule",

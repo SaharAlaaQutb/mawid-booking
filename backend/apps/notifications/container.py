@@ -16,6 +16,7 @@ from apps.notifications.application.notification import NotificationService
 from apps.notifications.application.reminders import ReminderService
 from apps.notifications.domain.messages import MessageRenderer
 from apps.notifications.domain.senders import NotificationSender
+from apps.notifications.infrastructure.ics import DjangoIcsService
 from apps.notifications.infrastructure.renderers import DjangoTemplateMessageRenderer
 from apps.notifications.infrastructure.senders import (
     ConsoleNotificationSender,
@@ -69,3 +70,7 @@ def build_reminder_service(
         clock=clock or SystemClock(),
         unit_of_work=build_unit_of_work(),
     )
+
+
+def build_ics_service() -> DjangoIcsService:
+    return DjangoIcsService()
