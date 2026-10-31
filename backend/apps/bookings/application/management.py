@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass, replace
 from datetime import datetime, timedelta
 from uuid import uuid4
@@ -34,9 +35,14 @@ from apps.catalog.domain.entities import Service, Staff
 from apps.catalog.domain.repository import ServiceRepository, StaffRepository
 from apps.core.domain.clock import Clock
 from apps.core.domain.unit_of_work import UnitOfWork
+from apps.notifications.application.notification import NotificationService
+from apps.notifications.domain.messages import NotificationKind
+from apps.notifications.domain.senders import NotificationError
 
 ACTIVE_STATUSES = (AppointmentStatus.PENDING, AppointmentStatus.CONFIRMED)
 MAX_REASON_LENGTH = 255
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,6 +67,7 @@ class BookingManagementService:
         availability: AvailabilityGateway,
         unit_of_work: UnitOfWork,
         clock: Clock,
+        notifier: NotificationService,
     ) -> None:
         self._businesses = business_repository
         self._services = service_repository
@@ -71,6 +78,7 @@ class BookingManagementService:
         self._availability = availability
         self._uow = unit_of_work
         self._clock = clock
+        self._notifier = notifier
 
     def get(self, token: str) -> ManagedBooking:
         appointment = self._find(token, self._clock.now())
@@ -101,7 +109,9 @@ class BookingManagementService:
             )
             updated = self._appointments.update(updated)
             self._reminders.cancel_pending_for_appointment(updated.id)
-        return replace(details, appointment=updated)
+        result = replace(details, appointment=updated)
+        self._notify(NotificationKind.CANCELLATION, result)
+        return result
 
     def reschedule(
         self,
@@ -159,7 +169,7 @@ class BookingManagementService:
         except AppointmentConflictError as exc:
             raise SlotTakenError("This slot is no longer available.") from exc
 
-        return BookingResult(
+        result = BookingResult(
             appointment=saved,
             customer=details.customer,
             service=details.service,
@@ -167,6 +177,36 @@ class BookingManagementService:
             business=details.business,
             management_token=new_token.value,
         )
+        self._notify(
+            NotificationKind.RESCHEDULE,
+            result,
+            management_token=new_token.value,
+        )
+        return result
+
+    def _notify(
+        self,
+        kind: NotificationKind,
+        booking: ManagedBooking | BookingResult,
+        *,
+        management_token: str | None = None,
+    ) -> None:
+        try:
+            self._notifier.send(
+                kind,
+                appointment=booking.appointment,
+                customer=booking.customer,
+                service=booking.service,
+                staff=booking.staff,
+                business=booking.business,
+                management_token=management_token,
+            )
+        except NotificationError:
+            logger.exception(
+                "Failed to send %s notification",
+                kind.value,
+                extra={"appointment_id": str(booking.appointment.id)},
+            )
 
     def _find(
         self,

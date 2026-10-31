@@ -61,6 +61,7 @@ def build_management_service() -> BookingManagementService:
         availability=AvailabilityGateway(build_availability_service()),
         unit_of_work=build_unit_of_work(),
         clock=SystemClock(),
+        notifier=build_notification_service(),
     )
 
 
@@ -74,6 +75,7 @@ def build_staff_appointment_service() -> StaffAppointmentService:
         reminder_repository=build_reminder_repository(),
         unit_of_work=build_unit_of_work(),
         clock=SystemClock(),
+        notifier=build_notification_service(),
     )
 
 

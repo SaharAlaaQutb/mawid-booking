@@ -33,16 +33,19 @@ class NotificationService:
         service: Service,
         staff: Staff,
         business: Business,
-        management_token: str,
+        management_token: str | None = None,
         language: str | None = None,
     ) -> None:
+        management_url = (
+            build_management_link(self._base_url, management_token) if management_token else ""
+        )
         context = self._context_builder.build(
             appointment=appointment,
             customer=customer,
             service=service,
             staff=staff,
             business=business,
-            management_url=build_management_link(self._base_url, management_token),
+            management_url=management_url,
             language=language,
         )
         message = self._renderer.render(kind, context)
