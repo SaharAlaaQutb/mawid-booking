@@ -60,6 +60,7 @@ omit = ["apps/*/migrations/*", "apps/*/apps.py"]
 
 [tool.coverage.report]
 exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]
+fail_under = 85
 
 [tool.mypy]
 python_version = "3.12"
