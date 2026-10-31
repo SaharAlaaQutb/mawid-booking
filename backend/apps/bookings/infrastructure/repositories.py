@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from django.db import IntegrityError
+from django.db import IntegrityError, connection
 
 from apps.bookings.domain.entities import Appointment, Customer, Reminder
 from apps.bookings.domain.errors import AppointmentConflictError
@@ -237,6 +237,17 @@ class DjangoReminderRepository:
             send_at__lte=before,
         )
         return [_reminder_to_entity(model) for model in models]
+
+    def claim_due(self, before: datetime, limit: int = 100) -> list[Reminder]:
+        models = ReminderModel.objects.filter(
+            status=ReminderStatus.PENDING.value,
+            send_at__lte=before,
+        ).order_by("send_at")
+        if connection.features.has_select_for_update and (
+            connection.features.has_select_for_update_skip_locked
+        ):
+            models = models.select_for_update(skip_locked=True)
+        return [_reminder_to_entity(model) for model in models[:limit]]
 
     def add(self, reminder: Reminder) -> Reminder:
         model = ReminderModel.objects.create(

@@ -6,7 +6,7 @@ from apps.bookings.container import (
 )
 from apps.businesses.container import build_business_repository
 from apps.catalog.container import build_service_repository, build_staff_repository
-from apps.notifications.container import build_notification_service
+from apps.notifications.container import build_notification_service, build_reminder_service
 from apps.notifications.domain.messages import NotificationKind
 from apps.notifications.domain.senders import NotificationError
 from celery import shared_task
@@ -53,3 +53,8 @@ def send_notification(
         management_token=management_token,
         language=language,
     )
+
+
+@shared_task(name="notifications.process_due_reminders")
+def process_due_reminders(limit: int = 100) -> int:
+    return build_reminder_service().process_due(limit=limit)
