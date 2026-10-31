@@ -1,0 +1,520 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mawid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 00:00+0000\n"
+"PO-Revision-Date: 2026-10-31 00:00+0000\n"
+"Last-Translator: Mawid\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "Staff"
+msgstr "Staff"
+
+msgid "English"
+msgstr "English"
+
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "email address"
+msgstr "email address"
+
+msgid "full name"
+msgstr "full name"
+
+msgid "role"
+msgstr "role"
+
+msgid "preferred language"
+msgstr "preferred language"
+
+msgid "active"
+msgstr "active"
+
+msgid "staff status"
+msgstr "staff status"
+
+msgid "date joined"
+msgstr "date joined"
+
+msgid "user"
+msgstr "user"
+
+msgid "users"
+msgstr "users"
+
+msgid "This account is not linked to an active staff member."
+msgstr "This account is not linked to an active staff member."
+
+msgid "Only the business owner can perform this action."
+msgstr "Only the business owner can perform this action."
+
+msgid "A refresh token is required."
+msgstr "A refresh token is required."
+
+msgid "business"
+msgstr "business"
+
+msgid "name"
+msgstr "name"
+
+msgid "email"
+msgstr "email"
+
+msgid "phone"
+msgstr "phone"
+
+msgid "language"
+msgstr "language"
+
+msgid "created at"
+msgstr "created at"
+
+msgid "updated at"
+msgstr "updated at"
+
+msgid "customer"
+msgstr "customer"
+
+msgid "customers"
+msgstr "customers"
+
+msgid "Name is required."
+msgstr "Name is required."
+
+msgid "service"
+msgstr "service"
+
+msgid "staff member"
+msgstr "staff member"
+
+msgid "starts at"
+msgstr "starts at"
+
+msgid "ends at"
+msgstr "ends at"
+
+msgid "status"
+msgstr "status"
+
+msgid "price in minor units"
+msgstr "price in minor units"
+
+msgid "currency"
+msgstr "currency"
+
+msgid "customer language"
+msgstr "customer language"
+
+msgid "notes"
+msgstr "notes"
+
+msgid "management token hash"
+msgstr "management token hash"
+
+msgid "management token expires at"
+msgstr "management token expires at"
+
+msgid "idempotency key"
+msgstr "idempotency key"
+
+msgid "rescheduled from"
+msgstr "rescheduled from"
+
+msgid "cancelled at"
+msgstr "cancelled at"
+
+msgid "cancelled by"
+msgstr "cancelled by"
+
+msgid "cancellation reason"
+msgstr "cancellation reason"
+
+msgid "appointment"
+msgstr "appointment"
+
+msgid "appointments"
+msgstr "appointments"
+
+msgid "Appointments must use timezone-aware datetimes."
+msgstr "Appointments must use timezone-aware datetimes."
+
+msgid "End must be after start."
+msgstr "End must be after start."
+
+msgid "Service belongs to another business."
+msgstr "Service belongs to another business."
+
+msgid "Staff member belongs to another business."
+msgstr "Staff member belongs to another business."
+
+msgid "Customer belongs to another business."
+msgstr "Customer belongs to another business."
+
+msgid "This staff member already has an appointment in that slot."
+msgstr "This staff member already has an appointment in that slot."
+
+msgid "kind"
+msgstr "kind"
+
+msgid "send at"
+msgstr "send at"
+
+msgid "sent at"
+msgstr "sent at"
+
+msgid "attempts"
+msgstr "attempts"
+
+msgid "last error"
+msgstr "last error"
+
+msgid "reminder"
+msgstr "reminder"
+
+msgid "reminders"
+msgstr "reminders"
+
+msgid "Send time must be timezone-aware."
+msgstr "Send time must be timezone-aware."
+
+msgid "Include a timezone offset in the start time."
+msgstr "Include a timezone offset in the start time."
+
+msgid "Use 'any' or a valid staff id."
+msgstr "Use 'any' or a valid staff id."
+
+msgid "The appointment was not found."
+msgstr "The appointment was not found."
+
+msgid "This status change is not allowed."
+msgstr "This status change is not allowed."
+
+msgid "The requested calendar range is invalid."
+msgstr "The requested calendar range is invalid."
+
+msgid "The requested staff member is not available."
+msgstr "The requested staff member is not available."
+
+msgid "You cannot change this appointment."
+msgstr "You cannot change this appointment."
+
+msgid "Calendar access is limited to your own schedule."
+msgstr "Calendar access is limited to your own schedule."
+
+msgid "No active business is configured."
+msgstr "No active business is configured."
+
+msgid "The requested service is not available."
+msgstr "The requested service is not available."
+
+msgid "The requested time is not available."
+msgstr "The requested time is not available."
+
+msgid "This slot was just taken. Choose another time."
+msgstr "This slot was just taken. Choose another time."
+
+msgid "This idempotency key was already used for a different booking."
+msgstr "This idempotency key was already used for a different booking."
+
+msgid "This management link is invalid or has expired."
+msgstr "This management link is invalid or has expired."
+
+msgid "This appointment can no longer be cancelled online."
+msgstr "This appointment can no longer be cancelled online."
+
+msgid "slug"
+msgstr "slug"
+
+msgid "Arabic name"
+msgstr "Arabic name"
+
+msgid "English name"
+msgstr "English name"
+
+msgid "timezone"
+msgstr "timezone"
+
+msgid "default locale"
+msgstr "default locale"
+
+msgid "slot interval in minutes"
+msgstr "slot interval in minutes"
+
+msgid "minimum lead time in minutes"
+msgstr "minimum lead time in minutes"
+
+msgid "maximum advance booking days"
+msgstr "maximum advance booking days"
+
+msgid "cancellation window in hours"
+msgstr "cancellation window in hours"
+
+msgid "Arabic address"
+msgstr "Arabic address"
+
+msgid "English address"
+msgstr "English address"
+
+msgid "businesses"
+msgstr "businesses"
+
+msgid "Both business names are required."
+msgstr "Both business names are required."
+
+msgid "Currency is required."
+msgstr "Currency is required."
+
+msgid "The business was not found."
+msgstr "The business was not found."
+
+msgid "Use a hex color such as #0F766E."
+msgstr "Use a hex color such as #0F766E."
+
+msgid "Arabic description"
+msgstr "Arabic description"
+
+msgid "English description"
+msgstr "English description"
+
+msgid "duration in minutes"
+msgstr "duration in minutes"
+
+msgid "buffer before in minutes"
+msgstr "buffer before in minutes"
+
+msgid "buffer after in minutes"
+msgstr "buffer after in minutes"
+
+msgid "sort order"
+msgstr "sort order"
+
+msgid "services"
+msgstr "services"
+
+msgid "Both service names are required."
+msgstr "Both service names are required."
+
+msgid "Arabic title"
+msgstr "Arabic title"
+
+msgid "English title"
+msgstr "English title"
+
+msgid "Arabic bio"
+msgstr "Arabic bio"
+
+msgid "English bio"
+msgstr "English bio"
+
+msgid "calendar color"
+msgstr "calendar color"
+
+msgid "staff members"
+msgstr "staff members"
+
+msgid "Both staff names are required."
+msgstr "Both staff names are required."
+
+msgid "staff service"
+msgstr "staff service"
+
+msgid "staff services"
+msgstr "staff services"
+
+msgid "Staff and service must belong to the same business."
+msgstr "Staff and service must belong to the same business."
+
+msgid "The service was not found."
+msgstr "The service was not found."
+
+msgid "The staff member was not found."
+msgstr "The staff member was not found."
+
+msgid "Use a valid UUID."
+msgstr "Use a valid UUID."
+
+msgid "The request conflicts with the current state."
+msgstr "The request conflicts with the current state."
+
+msgid "An unexpected error occurred."
+msgstr "An unexpected error occurred."
+
+msgid "Validation failed."
+msgstr "Validation failed."
+
+msgid "Request failed."
+msgstr "Request failed."
+
+#, python-format
+msgid "%(value)s is not a valid IANA timezone."
+msgstr "%(value)s is not a valid IANA timezone."
+
+#, python-format
+msgid "Appointment: %(service)s at %(business)s"
+msgstr "Appointment: %(service)s at %(business)s"
+
+#, python-format
+msgid "Staff: %(staff_name)s"
+msgstr "Staff: %(staff_name)s"
+
+#, python-format
+msgid "Date: %(date)s"
+msgstr "Date: %(date)s"
+
+#, python-format
+msgid "Time: %(start_time)s - %(end_time)s (%(timezone)s)"
+msgstr "Time: %(start_time)s - %(end_time)s (%(timezone)s)"
+
+#, python-format
+msgid "Price: %(price)s %(currency)s"
+msgstr "Price: %(price)s %(currency)s"
+
+#, python-format
+msgid "Manage your booking: %(management_url)s"
+msgstr "Manage your booking: %(management_url)s"
+
+#, python-format
+msgid "Your booking at %(business)s was cancelled"
+msgstr "Your booking at %(business)s was cancelled"
+
+msgid "Your booking has been cancelled."
+msgstr "Your booking has been cancelled."
+
+#, python-format
+msgid "Hello %(customer_name)s,"
+msgstr "Hello %(customer_name)s,"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "If you did not request this change, please contact us."
+msgstr "If you did not request this change, please contact us."
+
+#, python-format
+msgid "Service: %(service_name)s"
+msgstr "Service: %(service_name)s"
+
+#, python-format
+msgid "Your booking at %(business)s is confirmed"
+msgstr "Your booking at %(business)s is confirmed"
+
+msgid "Your booking is confirmed."
+msgstr "Your booking is confirmed."
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "Price"
+msgstr "Price"
+
+#, python-format
+msgid "Notes: %(notes)s"
+msgstr "Notes: %(notes)s"
+
+msgid "Manage your booking"
+msgstr "Manage your booking"
+
+msgid "We look forward to seeing you."
+msgstr "We look forward to seeing you."
+
+#, python-format
+msgid "Duration: %(duration)s min"
+msgstr "Duration: %(duration)s min"
+
+msgid "If you need to make changes, use the link above."
+msgstr "If you need to make changes, use the link above."
+
+#, python-format
+msgid "Reminder: your booking at %(business)s"
+msgstr "Reminder: your booking at %(business)s"
+
+msgid "This is a reminder for your upcoming booking."
+msgstr "This is a reminder for your upcoming booking."
+
+#, python-format
+msgid "Your booking at %(business)s was rescheduled"
+msgstr "Your booking at %(business)s was rescheduled"
+
+msgid "Your booking has been rescheduled."
+msgstr "Your booking has been rescheduled."
+
+msgid "Monday"
+msgstr "Monday"
+
+msgid "Tuesday"
+msgstr "Tuesday"
+
+msgid "Wednesday"
+msgstr "Wednesday"
+
+msgid "Thursday"
+msgstr "Thursday"
+
+msgid "Friday"
+msgstr "Friday"
+
+msgid "Saturday"
+msgstr "Saturday"
+
+msgid "Sunday"
+msgstr "Sunday"
+
+msgid "weekday"
+msgstr "weekday"
+
+msgid "start time"
+msgstr "start time"
+
+msgid "end time"
+msgstr "end time"
+
+msgid "working hours"
+msgstr "working hours"
+
+msgid "End time must be after start time."
+msgstr "End time must be after start time."
+
+msgid "This shift overlaps an existing shift for the same day."
+msgstr "This shift overlaps an existing shift for the same day."
+
+msgid "reason"
+msgstr "reason"
+
+msgid "created by"
+msgstr "created by"
+
+msgid "time off"
+msgstr "time off"
+
+msgid "Time off must use timezone-aware datetimes."
+msgstr "Time off must use timezone-aware datetimes."
+
+msgid "You can only access your own schedule."
+msgstr "You can only access your own schedule."
+
+msgid "The working hours entry was not found."
+msgstr "The working hours entry was not found."
+
+msgid "The time off entry was not found."
+msgstr "The time off entry was not found."
+
+msgid "The requested date is outside the booking horizon."
+msgstr "The requested date is outside the booking horizon."
+
+msgid "Staff member is not available."
+msgstr "Staff member is not available."
